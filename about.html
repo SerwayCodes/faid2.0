@@ -92,6 +92,7 @@
     />
 
     <!-- CSS Files -->
+
     <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
     <link rel="stylesheet" href="assets/css/owl.carousel.min.css" />
     <link rel="stylesheet" href="assets/css/slicknav.css" />
@@ -185,82 +186,50 @@
 
       <!-- Want To work End -->
       <!--? Testimonial Start -->
-      <div class="testimonial-area testimonial-padding">
-        <div class="container">
-          <!-- Testimonial contents -->
-          <div class="row d-flex justify-content-between">
-            <div class="col-xl-3 col-lg-6 col-md-10 m-5">
-              <!-- Single Testimonial -->
-              <div class="single-testimonial text-center">
-                <div class="testimonial-caption">
-                  <!-- founder -->
-                  <div class="testimonial-founder">
-                    <div class="founder-img mb-40">
-                      <img src="assets/img/gallery/testimonial.png" alt="" />
-                      <span>Mr, Rosario Kalavina</span>
-                      <p>Creative Director</p>
-                    </div>
-                  </div>
-                  <div class="testimonial-top">
-                    <p>
-                      “I am at an age where I just want to be fit and healthy
-                      our bodies are our responsibility! So start caring for
-                      your body and it will care for you. Eat clean it will care
-                      for you and workout hard.”
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-6 col-md-10 m-5">
-              <!-- Single Testimonial -->
-              <div class="single-testimonial text-center">
-                <div class="testimonial-caption">
-                  <!-- founder -->
-                  <div class="testimonial-founder">
-                    <div class="founder-img mb-40">
-                      <img src="assets/img/gallery/testimonial.png" alt="" />
-                      <span>Mr, Rosario Kalavina</span>
-                      <p>Creative Director</p>
-                    </div>
-                  </div>
-                  <div class="testimonial-top">
-                    <p>
-                      “I am at an age where I just want to be fit and healthy
-                      our bodies are our responsibility! So start caring for
-                      your body and it will care for you. Eat clean it will care
-                      for you and workout hard.”
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-6 col-md-10 m-5">
-              <!-- Single Testimonial -->
-              <div class="single-testimonial text-center">
-                <div class="testimonial-caption">
-                  <!-- founder -->
-                  <div class="testimonial-founder">
-                    <div class="founder-img mb-40">
-                      <img src="assets/img/gallery/testimonial.png" alt="" />
-                      <span>Mr, Rosario Kalavina</span>
-                      <p>Creative Director</p>
-                    </div>
-                  </div>
-                  <div class="testimonial-top">
-                    <p>
-                      “I am at an age where I just want to be fit and healthy
-                      our bodies are our responsibility! So start caring for
-                      your body and it will care for you. Eat clean it will care
-                      for you and workout hard.”
-                    </p>
-                  </div>
+      <div class="container py-5">
+        <div class="row justify-content-center">
+          <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card shadow-sm text-center">
+              <div class="card-body">
+                <!-- Founder Image and Details -->
+                <img
+                  src="assets/img/gallery/testimonial.png"
+                  class="img-fluid rounded-circle mb-3"
+                  alt="Rosario Kalavina"
+                  style="width: 120px; height: 120px; object-fit: cover"
+                />
+                <h5 class="mb-1">Mr. Rosario Kalavina</h5>
+                <p class="text-muted mb-3">Executive Director</p>
+
+                <!-- Bio Block -->
+                <div class="bio-block text-justify">
+                  <p>
+                    Rosario Kalavina is the Executive Director of Future for All
+                    in Development (FAID), a non-profit organization dedicated
+                    to community development and social welfare. He holds a
+                    Bachelor's degree in Education Humanities from the
+                    University of Malawi and diplomas in Community Development,
+                    Project Management, and Human Resources.
+                    <span class="collapse">
+                      With experience leading projects such as Mtengo Wanga,
+                      Back to Life (Water and Sanitation), and Phungu Wanga,
+                      Rosario is committed to empowering marginalized
+                      communities and promoting social justice.
+                    </span>
+                  </p>
+                  <a
+                    class="toggleLink text-primary"
+                    data-toggle="collapse"
+                    href="#"
+                    >See more ↓</a
+                  >
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
       <!-- Testimonial End -->
 
       <!--? Count Down Start -->
@@ -448,6 +417,31 @@
     </div>
 
     <!-- JS here -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Auto-assign unique IDs to each collapse inside .bio-block
+        document
+          .querySelectorAll(".bio-block")
+          .forEach(function (block, index) {
+            let collapseEl = block.querySelector(".collapse");
+            let toggleLink = block.querySelector(".toggleLink");
+            let collapseId = "bio-" + index;
+
+            collapseEl.id = collapseId;
+            toggleLink.setAttribute("href", "#" + collapseId);
+            toggleLink.setAttribute("aria-controls", collapseId);
+
+            // Handle text change
+            $(collapseEl).on("shown.bs.collapse", function () {
+              toggleLink.textContent = "See less ↑";
+            });
+
+            $(collapseEl).on("hidden.bs.collapse", function () {
+              toggleLink.textContent = "See more ↓";
+            });
+          });
+      });
+    </script>
 
     <script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
     <!-- Jquery, Popper, Bootstrap -->
