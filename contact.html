@@ -191,68 +191,62 @@
               <h2 class="contact-title">Get in Touch</h2>
             </div>
             <div class="col-lg-8">
-              <form
-                class="form-contact contact_form"
-                action=""
-                method="post"
-                id="contactForm"
-                novalidate="novalidate"
-              >
+              <!-- Contact Form -->
+              <form id="contact-form" class="form-contact contact_form">
                 <div class="row">
+                  <!-- Message -->
                   <div class="col-12">
                     <div class="form-group">
                       <textarea
                         class="form-control w-100"
                         name="message"
-                        id="message"
-                        cols="30"
-                        rows="9"
-                        onfocus="this.placeholder = ''"
-                        onblur="this.placeholder = 'Enter Message'"
-                        placeholder=" Enter Message"
+                        placeholder="Enter Message"
+                        required
                       ></textarea>
                     </div>
                   </div>
+
+                  <!-- Name -->
                   <div class="col-sm-6">
                     <div class="form-group">
                       <input
                         class="form-control valid"
                         name="name"
-                        id="name"
                         type="text"
-                        onfocus="this.placeholder = ''"
-                        onblur="this.placeholder = 'Enter your name'"
                         placeholder="Enter your name"
+                        required
                       />
                     </div>
                   </div>
+
+                  <!-- Email -->
                   <div class="col-sm-6">
                     <div class="form-group">
                       <input
                         class="form-control valid"
                         name="email"
-                        id="email"
                         type="email"
-                        onfocus="this.placeholder = ''"
-                        onblur="this.placeholder = 'Enter email address'"
                         placeholder="Email"
+                        required
                       />
                     </div>
                   </div>
+
+                  <!-- Subject -->
                   <div class="col-12">
                     <div class="form-group">
                       <input
                         class="form-control"
                         name="subject"
-                        id="subject"
                         type="text"
-                        onfocus="this.placeholder = ''"
-                        onblur="this.placeholder = 'Enter Subject'"
                         placeholder="Enter Subject"
+                        required
                       />
                     </div>
                   </div>
                 </div>
+
+                <!-- Submit button -->
                 <div class="form-group mt-3">
                   <button
                     type="submit"
@@ -262,6 +256,16 @@
                   </button>
                 </div>
               </form>
+
+              <!-- Modal -->
+              <div id="statusModal" class="modal">
+                <div class="modal-content text-center">
+                  <div id="modal-icon" class="modal-icon">
+                    <!-- Spinner, checkmark, or X will appear here -->
+                  </div>
+                  <p id="modal-message"></p>
+                </div>
+              </div>
             </div>
             <div class="col-lg-3 offset-lg-1">
               <div class="media contact-info">
@@ -434,6 +438,57 @@
       <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
     </div>
     <!-- JS here -->
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+    <script>
+      // Initialize EmailJS
+      (function () {
+        emailjs.init("3vgK-QbWnXCgvbIh0"); // Public Key
+      })();
+
+      const form = document.getElementById("contact-form");
+      const modal = document.getElementById("statusModal");
+      const modalIcon = document.getElementById("modal-icon");
+      const modalMessage = document.getElementById("modal-message");
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        // Show modal with loading spinner
+        modal.style.display = "flex";
+        modalIcon.innerHTML = '<div class="loader"></div>';
+        modalMessage.textContent = "Sending...";
+
+        emailjs.sendForm("service_jnqw0wn", "template_w5c8mhi", this).then(
+          () => {
+            modalIcon.innerHTML = '<span class="checkmark">✔</span>';
+            modalMessage.textContent = "Message sent successfully!";
+            this.reset();
+
+            // Auto close after 3s
+            setTimeout(() => {
+              modal.style.display = "none";
+            }, 3000);
+          },
+          (error) => {
+            modalIcon.innerHTML = '<span class="error-mark">✖</span>';
+            modalMessage.textContent = "Failed to send. Try again later.";
+            console.error("Error:", error);
+
+            // Auto close after 3s
+            setTimeout(() => {
+              modal.style.display = "none";
+            }, 3000);
+          }
+        );
+      });
+
+      // Allow manual close by clicking anywhere
+      modal.addEventListener("click", function () {
+        modal.style.display = "none";
+      });
+    </script>
 
     <script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
     <!-- Jquery, Popper, Bootstrap -->
